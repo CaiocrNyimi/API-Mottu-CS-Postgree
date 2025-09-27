@@ -1,0 +1,258 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MottuApi</name>
+    </assembly>
+    <members>
+        <member name="T:MottuApi.Controllers.MotosController">
+            <summary>
+            Controller para operações CRUD de motos.
+            </summary>
+        </member>
+        <member name="M:MottuApi.Controllers.MotosController.GetAll(System.Int32,System.Int32)">
+            <summary>
+            Retorna uma lista paginada de motos.
+            </summary>
+            <param name="page">Número da página (padrão: 1).</param>
+            <param name="pageSize">Tamanho da página (padrão: 10).</param>
+            <returns>Lista paginada de motos com links HATEOAS.</returns>
+        </member>
+        <member name="M:MottuApi.Controllers.MotosController.GetById(System.Int32)">
+            <summary>
+            Retorna uma moto pelo seu identificador.
+            </summary>
+            <param name="id">Id da moto.</param>
+            <returns>Moto encontrada ou 404.</returns>
+        </member>
+        <member name="M:MottuApi.Controllers.MotosController.SearchByPlaca(System.String)">
+            <summary>
+            Busca uma moto pela placa.
+            </summary>
+            <param name="placa">Placa da moto.</param>
+            <returns>Moto encontrada ou 404.</returns>
+        </member>
+        <member name="M:MottuApi.Controllers.MotosController.Create(MottuApi.Models.Moto)">
+            <summary>
+            Cria uma nova moto.
+            </summary>
+            <param name="moto">Dados da moto.</param>
+            <returns>Moto criada.</returns>
+        </member>
+        <member name="M:MottuApi.Controllers.MotosController.Update(System.Int32,MottuApi.Models.Moto)">
+            <summary>
+            Atualiza uma moto existente.
+            </summary>
+            <param name="id">Id da moto.</param>
+            <param name="moto">Dados atualizados.</param>
+            <returns>Status da operação.</returns>
+        </member>
+        <member name="M:MottuApi.Controllers.MotosController.Delete(System.Int32)">
+            <summary>
+            Exclui uma moto pelo id.
+            </summary>
+            <param name="id">Id da moto.</param>
+            <returns>Status da operação.</returns>
+        </member>
+        <member name="T:MottuApi.Controllers.MovimentacoesController">
+            <summary>
+            Controller para opera��es CRUD de movimenta��es.
+            </summary>
+        </member>
+        <member name="M:MottuApi.Controllers.MovimentacoesController.GetAll(System.Int32,System.Int32)">
+            <summary>
+            Retorna uma lista paginada de movimenta��es.
+            </summary>
+            <param name="page">N�mero da p�gina (padr�o: 1).</param>
+            <param name="pageSize">Tamanho da p�gina (padr�o: 10).</param>
+            <returns>Lista paginada de movimenta��es com links HATEOAS.</returns>
+        </member>
+        <member name="M:MottuApi.Controllers.MovimentacoesController.GetById(System.Int32)">
+            <summary>
+            Retorna uma movimenta��o pelo seu identificador.
+            </summary>
+            <param name="id">Id da movimenta��o.</param>
+            <returns>Movimenta��o encontrada ou 404.</returns>
+        </member>
+        <member name="M:MottuApi.Controllers.MovimentacoesController.Create(MottuApi.Models.Movimentacao)">
+            <summary>
+            Cria uma nova movimenta��o.
+            </summary>
+            <param name="movimentacao">Dados da movimenta��o.</param>
+            <returns>Movimenta��o criada.</returns>
+        </member>
+        <member name="M:MottuApi.Controllers.MovimentacoesController.Update(System.Int32,MottuApi.Models.Movimentacao)">
+            <summary>
+            Atualiza uma movimenta��o existente.
+            </summary>
+            <param name="id">Id da movimenta��o.</param>
+            <param name="movimentacao">Dados atualizados.</param>
+            <returns>Status da opera��o.</returns>
+        </member>
+        <member name="M:MottuApi.Controllers.MovimentacoesController.Delete(System.Int32)">
+            <summary>
+            Exclui uma movimenta��o pelo id.
+            </summary>
+            <param name="id">Id da movimenta��o.</param>
+            <returns>Status da opera��o.</returns>
+        </member>
+        <member name="T:MottuApi.Controllers.PatiosController">
+            <summary>
+            Controller para opera��es CRUD de p�tios.
+            </summary>
+        </member>
+        <member name="M:MottuApi.Controllers.PatiosController.GetAll(System.Int32,System.Int32)">
+            <summary>
+            Retorna uma lista paginada de p�tios.
+            </summary>
+            <param name="page">N�mero da p�gina (padr�o: 1).</param>
+            <param name="pageSize">Tamanho da p�gina (padr�o: 10).</param>
+            <returns>Lista paginada de p�tios com links HATEOAS.</returns>
+        </member>
+        <member name="M:MottuApi.Controllers.PatiosController.GetById(System.Int32)">
+            <summary>
+            Retorna um p�tio pelo seu identificador.
+            </summary>
+            <param name="id">Id do p�tio.</param>
+            <returns>P�tio encontrado ou 404.</returns>
+        </member>
+        <member name="M:MottuApi.Controllers.PatiosController.Create(MottuApi.Models.Patio)">
+            <summary>
+            Cria um novo p�tio.
+            </summary>
+            <param name="patio">Dados do p�tio.</param>
+            <returns>P�tio criado.</returns>
+        </member>
+        <member name="M:MottuApi.Controllers.PatiosController.Update(System.Int32,MottuApi.Models.Patio)">
+            <summary>
+            Atualiza um p�tio existente.
+            </summary>
+            <param name="id">Id do p�tio.</param>
+            <param name="patio">Dados atualizados.</param>
+            <returns>Status da opera��o.</returns>
+        </member>
+        <member name="M:MottuApi.Controllers.PatiosController.Delete(System.Int32)">
+            <summary>
+            Exclui um p�tio pelo id.
+            </summary>
+            <param name="id">Id do p�tio.</param>
+            <returns>Status da opera��o.</returns>
+        </member>
+        <member name="T:MottuApi.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:MottuApi.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MottuApi.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MottuApi.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:MottuApi.Models.Moto">
+            <summary>
+            Representa uma moto estacionada no sistema.
+            </summary>
+        </member>
+        <member name="P:MottuApi.Models.Moto.Id">
+            <summary>
+            Identificador único da moto.
+            </summary>
+        </member>
+        <member name="P:MottuApi.Models.Moto.Placa">
+            <summary>
+            Placa da moto.
+            </summary>
+        </member>
+        <member name="P:MottuApi.Models.Moto.Status">
+            <summary>
+            Status atual da moto (Ex: Disponível, Em Uso, Em Manutenção).
+            </summary>
+        </member>
+        <member name="P:MottuApi.Models.Moto.Patio">
+            <summary>
+            Nome do pátio onde a moto está estacionada.
+            </summary>
+        </member>
+        <member name="P:MottuApi.Models.Moto.DataEntrada">
+            <summary>
+            Data de entrada da moto no pátio.
+            </summary>
+        </member>
+        <member name="P:MottuApi.Models.Moto.DataSaida">
+            <summary>
+            Data de saída da moto do pátio (opcional).
+            </summary>
+        </member>
+        <member name="P:MottuApi.Models.Moto.Movimentacoes">
+            <summary>
+            Movimentações relacionadas à moto.
+            </summary>
+        </member>
+        <member name="T:MottuApi.Models.Movimentacao">
+            <summary>
+            Representa o registro de entrada e saída de uma moto em um pátio.
+            </summary>
+        </member>
+        <member name="P:MottuApi.Models.Movimentacao.Id">
+            <summary>
+            Identificador único da movimentação.
+            </summary>
+        </member>
+        <member name="P:MottuApi.Models.Movimentacao.MotoId">
+            <summary>
+            Identificador da moto relacionada.
+            </summary>
+        </member>
+        <member name="P:MottuApi.Models.Movimentacao.PatioId">
+            <summary>
+            Identificador do pátio relacionado.
+            </summary>
+        </member>
+        <member name="P:MottuApi.Models.Movimentacao.DataEntrada">
+            <summary>
+            Data e hora de entrada da moto no pátio.
+            </summary>
+        </member>
+        <member name="P:MottuApi.Models.Movimentacao.DataSaida">
+            <summary>
+            Data e hora de saída da moto do pátio (opcional).
+            </summary>
+        </member>
+        <member name="P:MottuApi.Models.Movimentacao.Moto">
+            <summary>
+            Moto relacionada à movimentação.
+            </summary>
+        </member>
+        <member name="P:MottuApi.Models.Movimentacao.Patio">
+            <summary>
+            Pátio relacionado à movimentação.
+            </summary>
+        </member>
+        <member name="T:MottuApi.Models.Patio">
+            <summary>
+            Representa um pátio de estacionamento de motos.
+            </summary>
+        </member>
+        <member name="P:MottuApi.Models.Patio.Id">
+            <summary>
+            Identificador único do pátio.
+            </summary>
+        </member>
+        <member name="P:MottuApi.Models.Patio.Nome">
+            <summary>
+            Nome do pátio.
+            </summary>
+        </member>
+        <member name="P:MottuApi.Models.Patio.Localizacao">
+            <summary>
+            Localização física do pátio.
+            </summary>
+        </member>
+        <member name="P:MottuApi.Models.Patio.Movimentacoes">
+            <summary>
+            Movimentações relacionadas a este pátio.
+            </summary>
+        </member>
+    </members>
+</doc>

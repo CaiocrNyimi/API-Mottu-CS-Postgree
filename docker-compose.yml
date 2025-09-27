@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - "5248:80"
+    depends_on:
+      - db
+    environment:
+      DB_CONNECTION: Host=db;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+    networks:
+      - mottu-net
+
+  db:
+    image: postgres:alpine
+    restart: always
+    environment:
+      POSTGRES_DB: mottu
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: senha
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - mottu-net
+
+volumes:
+  pgdata:
+
+networks:
+  mottu-net:
