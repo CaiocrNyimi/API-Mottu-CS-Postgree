@@ -10,4 +10,4 @@ ENV DB_CONNECTION=$DB_CONNECTION
 
 RUN dotnet restore MottuApi.csproj
 
-CMD sh -c "dotnet ef database update --connection ${DB_CONNECTION}"
+CMD ["dotnet", "ef", "database", "update"]

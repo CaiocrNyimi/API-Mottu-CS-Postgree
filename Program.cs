@@ -9,7 +9,8 @@ builder.WebHost.UseUrls("http://+:80");
 
 // Configura o DbContext com a string de conexão vinda do ambiente
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DB_CONNECTION") 
+        ?? Environment.GetEnvironmentVariable("DB_CONNECTION")));
 
 // Adiciona suporte a controllers
 builder.Services.AddControllers();

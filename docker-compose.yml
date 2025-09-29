@@ -37,7 +37,7 @@ services:
       args:
         DB_CONNECTION: ${DB_CONNECTION}
     ports:
-      - "5248:8080"
+      - "5248:80"
     depends_on:
       db:
         condition: service_healthy
