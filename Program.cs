@@ -4,10 +4,9 @@ using MottuApi.Data;
 var builder = WebApplication.CreateBuilder(args);
 var MyAllowAnyOriginPolicy = "_myAllowAnyOriginPolicy";
 
-// Adiciona o DbContext com a string de conexão do Oracle
-var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
+// Adiciona o DbContext com a string de conexão
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(connectionString));
+    options.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION")));
 
 
 // Adiciona suporte a controllers (ESSENCIAL para o Swagger mostrar seus endpoints!)
@@ -35,12 +34,9 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Pipeline de requisição
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// Adiciona Swagger
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

@@ -1,26 +1,49 @@
-version: '3.8'
-
 services:
-  api:
-    build: .
-    ports:
-      - "5248:80"
-    depends_on:
-      - db
-    environment:
-      DB_CONNECTION: Host=db;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
-    networks:
-      - mottu-net
-
   db:
     image: postgres:alpine
     restart: always
     environment:
-      POSTGRES_DB: mottu
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: senha
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - mottu-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  migrator:
+    build:
+      context: .
+      dockerfile: Dockerfile.migrator
+      args:
+        DB_CONNECTION: ${DB_CONNECTION}
+    environment:
+      DB_CONNECTION: ${DB_CONNECTION}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - mottu-net
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DB_CONNECTION: ${DB_CONNECTION}
+    ports:
+      - "5248:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      DB_CONNECTION: ${DB_CONNECTION}
     networks:
       - mottu-net
 
