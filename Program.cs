@@ -42,9 +42,6 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// HTTPS Redirection
-app.UseHttpsRedirection();
-
 // Aplica política de CORS
 app.UseCors(MyAllowAnyOriginPolicy);
 
