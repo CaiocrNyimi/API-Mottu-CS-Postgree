@@ -4,15 +4,17 @@ using MottuApi.Data;
 var builder = WebApplication.CreateBuilder(args);
 var MyAllowAnyOriginPolicy = "_myAllowAnyOriginPolicy";
 
-// Adiciona o DbContext com a string de conexão
+// Força escuta na porta 80
+builder.WebHost.UseUrls("http://+:80");
+
+// Configura o DbContext com a string de conexão vinda do ambiente
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION")));
 
-
-// Adiciona suporte a controllers (ESSENCIAL para o Swagger mostrar seus endpoints!)
+// Adiciona suporte a controllers
 builder.Services.AddControllers();
 
-// Swagger/OpenAPI
+// Configura Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -21,6 +23,7 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
 });
 
+// Libera CORS para qualquer origem
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowAnyOriginPolicy,
@@ -34,13 +37,18 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Adiciona Swagger
+// Ativa Swagger
 app.UseSwagger();
 app.UseSwaggerUI();
 
+// HTTPS Redirection
 app.UseHttpsRedirection();
 
-// Ativa os endpoints dos controllers
+// Aplica política de CORS
+app.UseCors(MyAllowAnyOriginPolicy);
+
+// Mapeia os endpoints dos controllers
 app.MapControllers();
 
+// Inicia a aplicação
 app.Run();
