@@ -10,5 +10,9 @@ RUN dotnet publish MottuApi.csproj -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
+
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "MottuApi.dll"]
+
+EXPOSE 80
+
+ENTRYPOINT ["dotnet", "MottuApi.dll", "--urls", "http://+:80"]
