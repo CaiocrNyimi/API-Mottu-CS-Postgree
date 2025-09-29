@@ -9,7 +9,7 @@
 ## 📌 Descrição
 
 Com uma arquitetura simples e eficiente para facilitar manutenção e escalabilidade, desenvolvemos uma:
-API RESTful para gerenciamento de motos, pátios e suas movimentações, desenvolvida em ASP.NET Core com Entity Framework Core e banco Oracle. Permite operações CRUD completas, consultas parametrizadas de moto por ID e placa, e oferece documentação automática via Swagger.
+API RESTful para gerenciamento de motos, pátios e suas movimentações, desenvolvida em ASP.NET Core com Entity Framework Core e banco Postgre. Permite operações CRUD completas, consultas parametrizadas de moto por ID e placa, e oferece documentação automática via Swagger.
 
 ---
 
