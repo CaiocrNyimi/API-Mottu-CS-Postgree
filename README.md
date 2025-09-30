@@ -58,12 +58,13 @@ API RESTful para gerenciamento de motos, pátios e suas movimentações, desenvo
 
 ### 🔧 Configuração do Banco de Dados
 
-No arquivo `appsettings.json`, configure a string de conexão Oracle:
+No arquivo `.env`, configure a string e os dados de conexão Postgre:
 
 ```json
-"ConnectionStrings": {
-  "OracleConnection": "User Id=seu_usuario;Password=sua_senha;Data Source=seu_host:porta/servico"
-}
+POSTGRES_DB=(nome do banco)
+POSTGRES_USER=(usuario)
+POSTGRES_PASSWORD=(senha)
+DB_CONNECTION="Host=db;Database=(nome do banco);Username=(usuario);Password=(senha)"
 ```
 
 Execute as migrations para criar as tabelas no banco:
@@ -73,7 +74,7 @@ dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```
 
-### ▶️ Executando a Aplicação
+### ▶️ Executando a Aplicação Localmente
 
 - Abra a solução no Visual Studio ou VS Code.  
 - Configure `MottuApi` como projeto de inicialização.  
@@ -83,3 +84,4 @@ dotnet ef database update
   *EU RODEI NA URL* - `http://localhost:5248/swagger`
 ---
 
+### ▶️ Executando a Aplicação na Nuvem
