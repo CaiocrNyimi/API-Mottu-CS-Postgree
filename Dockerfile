@@ -1,18 +1,25 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
+
+COPY ["MottuApi.csproj", "."]
+RUN dotnet restore MottuApi.csproj
+
 COPY . .
 
 RUN dotnet tool install --global dotnet-ef
 ENV PATH="$PATH:/root/.dotnet/tools"
 
-RUN dotnet restore MottuApi.csproj
 RUN dotnet publish MottuApi.csproj -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 
+RUN adduser -u 1000 -D appuser
+USER appuser
+
 COPY --from=build /app/publish .
 
-EXPOSE 80
+ENV ASPNETCORE_URLS=http://+:8080
+EXPOSE 8080
 
-ENTRYPOINT ["dotnet", "MottuApi.dll", "--urls", "http://+:80"]
+ENTRYPOINT ["dotnet", "MottuApi.dll"]
