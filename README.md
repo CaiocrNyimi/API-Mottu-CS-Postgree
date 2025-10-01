@@ -85,3 +85,151 @@ dotnet ef database update
 ---
 
 ### ▶️ Executando a Aplicação na Nuvem
+
+Guia Completo: Deploy da API ASP.NET Core 8.0 com PostgreSQL na Nuvem
+
+- 1. Configuração do Projeto Local:
+     
+✅ Requisitos
+
+.NET SDK 8.0
+Docker Desktop
+PostgreSQL
+Editor de código
+
+📁 Estrutura básica
+
+Seu projeto deve conter:
+
+/MottuApi
+  ├── MottuApi.csproj
+  ├── Program.cs
+  ├── Controllers/
+  ├── Models/
+  ├── .env
+  ├── Dockerfile
+  
+🔐 Arquivo .env
+
+Crie um arquivo .env com a string de conexão:
+
+env:
+
+POSTGRES_DB=postgres
+POSTGRES_USER=seu_usuario
+POSTGRES_PASSWORD=sua_senha
+
+DB_CONNECTION=Host=localhost;Database=postgres;Username=seu_usuario;Password=sua_senha;Ssl Mode=Disable;
+
+
+🧪 Teste local:
+
+dotnet run --project MottuApi.csproj
+
+Acesse:
+
+http://localhost:5248/swagger
+
+
+☁️ 2. Criar Banco de Dados PostgreSQL na Nuvem (Azure):
+
+
+🔧 Passos no Portal do Azure:
+
+Vá para portal.azure.com
+
+Crie um recurso: Banco de Dados PostgreSQL
+
+Escolha:
+
+Nome do servidor: nome_do_seu_servidor
+Usuário: seu_usuario
+Senha: sua_senha
+Versão: PostgreSQL 16
+
+
+Configure o firewall para permitir acesso da sua VM e da sua máquina local.
+
+
+Atualize sua string de conexão:
+
+env:
+
+DB_CONNECTION="Host=nome_db.postgres.database.azure.com;Database=postgres;Username=seu_usuario;Password=sua_senha;Ssl Mode=Require;Trust Server Certificate=true;"
+
+
+🐳 3. Preparar Docker para Deploy:
+
+📄 Dockerfile
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+COPY . .
+
+RUN dotnet tool install --global dotnet-ef
+ENV PATH="$PATH:/root/.dotnet/tools"
+
+RUN dotnet restore MottuApi.csproj
+RUN dotnet publish MottuApi.csproj -c Release -o /app/publish
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+WORKDIR /app
+
+RUN adduser --disabled-password --gecos "" appuser
+USER appuser
+
+COPY --from=build /app/publish .
+
+EXPOSE 8080
+ENTRYPOINT ["dotnet", "MottuApi.dll", "--urls", "http://+:8080"]
+
+
+
+🖥️ 4. Deploy na VM Linux (Azure):
+
+
+🔧 Acesse a VM via SSH
+
+ssh usuario@ip-da-vm
+
+🧱 Build da imagem
+
+docker build -t mottuapi:latest .
+
+🚀 Rodar o container com variável de ambiente
+
+docker run -d \
+  -e DB_CONNECTION="Host=nome_db.postgres.database.azure.com;Database=postgres;Username=seu_usuario;Password=sua_senha;Ssl Mode=Require;Trust Server Certificate=true;" \
+  -p 5248:8080 \
+  --name mottuapi \
+  mottuapi:latest
+
+
+🔓 5. Liberar porta no firewall da VM:
+
+🔧 Via Azure CLI
+
+az vm open-port --port 5248 --resource-group SeuGrupo --name SuaVM
+
+🌐 Ou via Portal do Azure
+
+Porta: 5248
+Protocolo: TCP
+Origem: Any
+Ação: Allow
+Prioridade: 380
+
+🌐 6. Acessar a API via navegador
+
+http://<ip-da-vm>:5248/swagger
+
+Exemplo:
+http://191.234.214.146:5248/swagger
+
+🧹 7. Gerenciar o container
+
+Parar:
+docker stop mottuapi
+
+Remover:
+docker rm mottuapi
