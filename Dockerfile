@@ -14,8 +14,7 @@ RUN dotnet publish MottuApi.csproj -c Release -o /app/publish
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 
-RUN adduser -u 1000 -D appuser
-USER appuser
+USER app
 
 COPY --from=build /app/publish .
 
